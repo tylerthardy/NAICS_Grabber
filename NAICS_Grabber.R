@@ -84,41 +84,6 @@ for (i in 1:nrow(NAICS2))
 NAICS2 = NAICS2new
 
 # Save data ---------------------------------------------------------------
-NAICStypes = c("NAICS2", "NAICS4", "NAICS6")
-for (NAICStype in NAICStypes)
-{
-  fileName = paste0(NAICStype, ".RData")
-  if (!file.exists(fileName))
-  {
-    x = get(NAICStype)
-    save(x, file=fileName)
-  }
-}
-
-# Prepare SQL Queries -----------------------------------------------------
-tableCreation = "
-CREATE TABLE NAICS2(
-  NAICS2Id INT NOT NULL PRIMARY KEY,
-  NAICS2Code INT NOT NULL,
-  NAICS2Name VARCHAR(MAX)
-);
-
-CREATE TABLE NAICS4(
-  NAICS4Id INT NOT NULL PRIMARY KEY,
-  NAICS4Code INT NOT NULL,
-  NAICS4Name VARCHAR(MAX)
-  NAICS2Code INT NOT NULL FOREIGN KEY REFERENCES NAICS2(NAICS2Code)
-);
-
-CREATE TABLE NAICS6(
-  NAICS6Id INT NOT NULL PRIMARY KEY,
-  NAICS6Code INT NOT NULL,
-  NAICS6Name VARCHAR(MAX)
-  NAICS4Code INT NOT NULL FOREIGN KEY REFERENCES NAICS4(NAICS4Code)
-  NAICS2Code INT NOT NULL FOREIGN KEY REFERENCES NAICS2(NAICS2Code)
-);
-"
-
-sprintf("INSERT INTO NAICS2 (NAICS2Code, NAICS2Name) VALUES (%s, %s)")
-
-
+# save(NAICS2, file=fileName)
+# save(NAICS4, file=fileName)
+# save(NAICS6, file=fileName)
